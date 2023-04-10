@@ -8,6 +8,18 @@ describe('', () => {
     cy.get('#addTaskButton').should('exist');
   })
 
+  it('The title field should have `todoTitle` as its `id`', () => {
+    cy.get('#todoTitle').should('exist');
+  })
+
+  it('The description field should have `todoDescription` as its `id`', () => {
+    cy.get('#todoDescription').should('exist');
+  })
+
+  it('The due date field should have `todoDueDate` as its `id`', () => {
+    cy.get('#todoDueDate').should('exist');
+  })
+
   it('Adding some sample items should result in an equal number of .TaskItem elements', () => {
     const todoItems = [
       {title: "Sample item 1", description: "item 1 description", dueDate: "2023-01-09"},
