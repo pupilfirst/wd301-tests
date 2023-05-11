@@ -32,7 +32,7 @@ if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
 
-describe("Level 5 milestone homepage", () => {
+describe("After signing in,", () => {
   beforeEach(() => {
     cy.visit(studentSubmissionUrl);
     cy.get("#username").clear();
@@ -42,16 +42,16 @@ describe("Level 5 milestone homepage", () => {
     cy.get("button[type='submit']").click();
   });
 
-  it("should have a <nav> element", () => {
+  it("the page should have a `<nav>` element", () => {
     cy.get("nav").should("be.visible");
   });
 
-  it("should have one (and only one) level one heading element", () => {
+  it("the page should have one (and only one) level one heading element", () => {
     cy.get("h1").should("have.length", 1);
   });
 });
 
-describe("Level 5 milestone tasks page", () => {
+describe("After signing in and visiting the `/tasks` page,", () => {
   beforeEach(() => {
     cy.visit(studentSubmissionUrl);
     cy.get("#username").clear();
@@ -62,12 +62,12 @@ describe("Level 5 milestone tasks page", () => {
     cy.visit(studentSubmissionUrl + "/tasks");
   });
 
-  it("can add new todo items", () => {
+  it("new `.TaskItem` elements should appear when adding items by filling in `#todoDueDate`, `#todoTitle`, `#todoDescription`,  and then clicking the `#addTaskButton`", () => {
     addEntries();
     cy.get(".TaskItem").should("have.length", todoItems.length);
   });
 
-  it("should not add empty item", () => {
+  it("the user should not be able to add items with necessary fields missing", () => {
     const todoItems = [
       {
         title: "Sample item 1",
@@ -92,13 +92,13 @@ describe("Level 5 milestone tasks page", () => {
     cy.get(".TaskItem").should("have.length", 0);
   });
 
-  it("should persist task items", () => {
+  it("reloading the page after adding some items should still show the items on the page", () => {
     addEntries();
     cy.reload();
     cy.get(".TaskItem").should("have.length", todoItems.length);
   });
 
-  it("should delete task items", () => {
+  it("deleting a few added items should reduce the number of `.TaskItem` elements on the page", () => {
     addEntries();
     cy.get(".deleteTaskButton").last().click();
     cy.get(".deleteTaskButton").last().click();
