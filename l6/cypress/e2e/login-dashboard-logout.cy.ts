@@ -1,4 +1,6 @@
-let studentSubmissionUrl = Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:3000";
+let studentSubmissionUrl =
+  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:3000";
+
 if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
@@ -16,7 +18,7 @@ describe("When signing up,", () => {
     cy.get("#userPassword").type("12345678");
     cy.get("button[type='submit']").click();
   });
-})
+});
 
 describe("After signing in,", () => {
   beforeEach(() => {
@@ -32,13 +34,13 @@ describe("After signing in,", () => {
     cy.location("pathname").should("equal", "/dashboard");
   });
 
-  it('the user should be shown their name and email in dashboard', () => {
-    cy.contains("alice@acme.com", { matchCase: false })
-    cy.contains("Alice", { matchCase: false })
-  })
+  it("the user should be shown their name and email in dashboard", () => {
+    cy.contains("alice@acme.com", { matchCase: false });
+    cy.contains("Alice", { matchCase: false });
+  });
 
-  it(", the user should be on a page with a `#logout-link`, which when clicked, takes the user to the `/signin` path", () => {
-    cy.get("#logout-link").should('exist');
+  it("the user should be on a page with a `#logout-link`, which when clicked, takes the user to the `/signin` path", () => {
+    cy.get("#logout-link").should("exist");
     cy.get("#logout-link").click();
     cy.location("pathname").should("equal", "/signin");
   });
