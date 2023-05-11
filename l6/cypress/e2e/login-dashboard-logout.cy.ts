@@ -6,7 +6,7 @@ if (studentSubmissionUrl.endsWith("/")) {
 }
 
 describe("When signing up,", () => {
-  it("the form should accept organisation name, username, email, password, and have a submit button", () => {
+  it("the form should accept `#organisationName`, `#userName`, `#userEmail`, `#userPassword`, and have a submit button", () => {
     cy.visit(studentSubmissionUrl + "/signup");
     cy.get("#organisationName").clear();
     cy.get("#organisationName").type("ACME Corp");
