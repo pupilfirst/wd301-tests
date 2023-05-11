@@ -3,8 +3,8 @@ if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
 
-describe("Preparing for Level 6 milestone testing, first we will signup", () => {
-  it("should visit signup path and create an account", () => {
+describe("When signing up,", () => {
+  it("the form should accept organisation name, username, email, password, and have a submit button", () => {
     cy.visit(studentSubmissionUrl + "/signup");
     cy.get("#organisationName").clear();
     cy.get("#organisationName").type("ACME Corp");
@@ -17,7 +17,8 @@ describe("Preparing for Level 6 milestone testing, first we will signup", () => 
     cy.get("button[type='submit']").click();
   });
 })
-describe("Level 6 milestone should validate signin, dashboard, signout", () => {
+
+describe("After signing in,", () => {
   beforeEach(() => {
     cy.visit(studentSubmissionUrl + "/signin");
     cy.get("#email").clear();
@@ -27,24 +28,24 @@ describe("Level 6 milestone should validate signin, dashboard, signout", () => {
     cy.get("button[type='submit']").click();
   });
 
-  it("and redirect to Dashboard when authenticated", () => {
+  it("the user should be redirected to the `/dashboard` path", () => {
     cy.location("pathname").should("equal", "/dashboard");
   });
 
-  it('and it shows user name and email in dashboard', () => {
+  it('the user should be shown their name and email in dashboard', () => {
     cy.contains("alice@acme.com", { matchCase: false })
     cy.contains("Alice", { matchCase: false })
   })
 
-  it("and redirect to Signin page when clicked on Signout", () => {
+  it(", the user should be on a page with a `#logout-link`, which when clicked, takes the user to the `/signin` path", () => {
     cy.get("#logout-link").should('exist');
     cy.get("#logout-link").click();
     cy.location("pathname").should("equal", "/signin");
   });
 });
 
-describe("Session check", () => {
-  it("and if someone wants to access the dashboard now, it should redirect the user to signin page", () => {
+describe("When signed out,", () => {
+  it("someone trying to access the `/dashboard` path should be redirected to the `/signin` path", () => {
     cy.visit(studentSubmissionUrl + "/dashboard");
     cy.location("pathname").should("equal", "/signin");
   });
