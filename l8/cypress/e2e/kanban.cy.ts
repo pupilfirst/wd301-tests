@@ -52,7 +52,7 @@ describe("After signing in,", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
     cy.contains(projectName, { matchCase: false }).click();
     cy.get("#newTaskBtn").click();
-    cy.get("#name").type(taskTitle);
+    cy.get("#title").type(taskTitle);
     cy.get("#description").type(taskDescription);
     cy.get("#dueDate").type("2023-05-10");
     cy.get("#newTaskSubmitBtn").click();
