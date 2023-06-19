@@ -3,7 +3,23 @@ if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
 
-describe("Preparing Level 7 milestone test suite to validate members page, signin form and signup form", () => {
+describe("Preparing for Level 7 milestone testing, first we will signup", () => {
+  it("should visit signup path and create an account", () => {
+    cy.visit(studentSubmissionUrl + "/signup");
+    cy.get("#organisationName").clear();
+    cy.get("#organisationName").type("ACME Corp");
+    cy.get("#userName").clear();
+    cy.get("#userName").type("Alice");
+    cy.get("#userEmail").clear();
+    cy.get("#userEmail").type("alice@acme.com");
+    cy.get("#userPassword").clear();
+    cy.get("#userPassword").type("12345678");
+    cy.get("button[type='submit']").click();
+  });
+});
+
+
+describe("After signing in, ", () => {
   beforeEach(() => {
     cy.visit(studentSubmissionUrl + "/signin");
     cy.get("#email").clear();
