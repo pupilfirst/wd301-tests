@@ -42,19 +42,41 @@ describe("After signing in,", () => {
     cy.get("#newProjectBtn").should("exist");
   });
 
-  it("the user should be able to create a task", () => {
+  it("new project page should contain an input field with `name` attribute as `name`, the submit button should have id `submitNewProjectBtn`", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
     cy.get("#newProjectBtn").click();
 
-    cy.get("#name").type(projectName);
+    cy.get('input[name="name"]').should("exist");
+    cy.get("#submitNewProjectBtn").should("exist");
+  });
+  
+  it("the user should be able to create a project", () => {
+    cy.visit(studentSubmissionUrl + "/account/projects");
+    cy.get("#newProjectBtn").click();
+
+    cy.get('input[name="name"]').type(projectName);
     cy.get("#submitNewProjectBtn").click();
+  });
+
+  it("new task page should contain input fields with name attributes `title`, `description`, `dueDate`", () => {
+    cy.visit(studentSubmissionUrl + "/account/projects");
+    cy.contains(projectName, { matchCase: false }).click();
+    cy.get("#newTaskBtn").click();
+
+    cy.get('input[name="title"]').should("exist");
+    cy.get('input[name="description"]').should("exist");
+    cy.get('input[name="dueDate"]').should("exist");
+    cy.get("#newTaskSubmitBtn").should("exist");
+  });
+  
+  it("the user should be able to create a task", () => {
 
     cy.visit(studentSubmissionUrl + "/account/projects");
     cy.contains(projectName, { matchCase: false }).click();
     cy.get("#newTaskBtn").click();
-    cy.get("#title").type(taskTitle);
-    cy.get("#description").type(taskDescription);
-    cy.get("#dueDate").type("2023-05-10");
+    cy.get('input[name="title"]').type(taskTitle);
+    cy.get('input[name="description"]').type(taskDescription);
+    cy.get('input[name="dueDate"]').type("2023-05-10");
     cy.get("#newTaskSubmitBtn").click();
     cy.wait(500);
   });
