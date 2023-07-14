@@ -8,8 +8,8 @@ if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
 
-describe("Preparing for Level 9 milestone testing, first we will signup", () => {
-  it("should visit signup path and create an account", () => {
+describe("When signed out,", () => {
+  it("users should be able to visit `/signup` and fill in `#organisationName`, `#userName`, `#userEmail`, `#userPassword`, and click the `submit` button", () => {
     cy.visit(studentSubmissionUrl + "/signup");
     cy.get("#organisationName").clear();
     cy.get("#organisationName").type("ACME Corp");
@@ -26,7 +26,8 @@ describe("Preparing for Level 9 milestone testing, first we will signup", () => 
 const projectName = Math.random().toString(36).substring(2, 7);
 const taskTitle = Math.random().toString(36).substring(2, 7);
 const taskDescription = Math.random().toString(36).substring(2, 30);
-describe("After signing in, the application should work as a Progressive Web App ", () => {
+
+describe("After signing in,", () => {
   beforeEach(() => {
     cy.visit(studentSubmissionUrl + "/signin");
     cy.get("#email").clear();
@@ -37,17 +38,16 @@ describe("After signing in, the application should work as a Progressive Web App
     cy.wait(800);
   });
 
-  it('with a proper Serviceworker', () => {
+  it("visiting the `/account/projects` path should render a Progressive Web App that uses a proper Serviceworker", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
     // Verify if the service worker is registered
     cy.window().then((window) => {
       expect(window.navigator.serviceWorker.controller).to.not.be.null;
     });
-
   });
 
-  it('with a proper Manifest file', () => {
+  it("visiting the `/account/projects` path should also use a proper Manifest file", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
     // Verify if the web page has a manifest file
@@ -55,7 +55,6 @@ describe("After signing in, the application should work as a Progressive Web App
       const manifest = document.querySelector('link[rel="manifest"]');
       expect(manifest).to.exist;
     });
-
   });
 });
 
@@ -70,23 +69,27 @@ describe("After signing in, and navigating to the ", () => {
     cy.wait(800);
   });
 
-  it('projects page, the ProjectList component should have suspense implemented rendering a `div` with class `suspense-loading`', () => {
+  it("`/account/projects` path, the `ProjectList` component should have suspense implemented, rendering a `div` with class `suspense-loading`", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
-    cy.intercept('GET', 'https://wd301-api.pupilfirst.school/projects', (req) => {
+    cy.intercept(
+      "GET",
+      "https://wd301-api.pupilfirst.school/projects",
+      (req) => {
         cy.wait(2000);
-    }).as('getProjects');
+      }
+    ).as("getProjects");
 
-    cy.get('.suspense-loading').should('be.visible');
+    cy.get(".suspense-loading").should("be.visible");
   });
 
-  it('members page, the MemberList component should have suspense implemented rendering a `div` with class `suspense-loading`', () => {
+  it("`/account/members` path, the `MemberList` component should have suspense implemented rendering a `div` with class `suspense-loading`", () => {
     cy.visit(studentSubmissionUrl + "/account/members");
-    
-    cy.intercept('GET', 'https://wd301-api.pupilfirst.school/users', (req) => {
-        cy.wait(2000);
-    }).as('getUsers');
 
-    cy.get('.suspense-loading').should('be.visible');
+    cy.intercept("GET", "https://wd301-api.pupilfirst.school/users", (req) => {
+      cy.wait(2000);
+    }).as("getUsers");
+
+    cy.get(".suspense-loading").should("be.visible");
   });
 });
