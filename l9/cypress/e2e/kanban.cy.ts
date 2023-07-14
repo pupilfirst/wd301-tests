@@ -38,7 +38,7 @@ describe("After signing in,", () => {
     cy.wait(800);
   });
 
-  it("visiting the `/account/projects` path should render a Progressive Web App that uses a proper Serviceworker", () => {
+  it("visiting the `/account/projects` path should render a Progressive Web App that uses a proper service worker", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
     // Verify if the service worker is registered
