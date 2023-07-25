@@ -64,7 +64,7 @@ describe("After signing in", () => {
     cy.contains(`Alice ${x}`, { matchCase: false });
   });
 
-  it("visiting the `/account/members` page should show a delete button that can be clicked", () => {
+  it("visiting the `/account/members` should show `.member` elements that have delete button in them that can be used to remove members", () => {
     cy.visit(studentSubmissionUrl + "/account/members");
 
     cy.get(".member") // Select all cards with classname ".member"
