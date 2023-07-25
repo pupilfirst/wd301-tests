@@ -1,7 +1,11 @@
 /// <reference types="cypress" />
+let studentSubmissionUrl = Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:5173";
+if (studentSubmissionUrl.endsWith("/")) {
+  studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
+}
 describe('', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env("STUDENT_SUBMISSION_URL"))
+    cy.visit(studentSubmissionUrl)
   })
 
   it('The submit button should have `addTaskButton` as its `id`', () => {
