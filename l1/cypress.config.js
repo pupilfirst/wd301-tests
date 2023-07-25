@@ -1,14 +1,10 @@
-const { defineConfig } = require("cypress");
+import { defineConfig } from "cypress";
+import cypressJsonResults from "cypress-json-results";
 
-module.exports = defineConfig({
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
-    },
+export default defineConfig({
+  e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-      require("cypress-json-results")({
+      cypressJsonResults({
         on,
         filename: "results.json",
       });

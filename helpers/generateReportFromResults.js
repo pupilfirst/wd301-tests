@@ -1,4 +1,4 @@
-let fs = require("fs");
+import fs from "fs";
 
 let generateFeedback = (passed, results) => {
   const testResults = Object.keys(results)
