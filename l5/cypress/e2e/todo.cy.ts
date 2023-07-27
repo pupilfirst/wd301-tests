@@ -17,7 +17,9 @@ const addEntries = () => {
   });
 };
 
-let studentSubmissionUrl = Cypress.env("STUDENT_SUBMISSION_URL");
+let studentSubmissionUrl =
+  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:5173";
+
 if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
@@ -160,9 +162,9 @@ describe("With protected routes implemented and while the user signs in with the
     cy.get("nav").should("have.length", 0);
   });
 
-  it("the application redirects back to the Home page from the `/notfound` page while clicking on the `#backToHomeButton`", () => {
+  it("the application redirects back to the `/home` page from the `/notfound` page while clicking on the `#backToHomeButton`", () => {
     cy.visit(studentSubmissionUrl + "/test");
     cy.get("#backToHomeButton").click();
-    cy.location("pathname").should("equal", "/");
+    cy.location("pathname").should("equal", "/home");
   });
 });
