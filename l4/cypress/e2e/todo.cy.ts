@@ -1,5 +1,12 @@
 /// <reference types="cypress" />
 
+let studentSubmissionUrl =
+  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:5173";
+
+if (studentSubmissionUrl.endsWith("/")) {
+  studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
+}
+
 const todoItems = [
   {
     title: "Sample item 1",
@@ -66,7 +73,7 @@ describe("", () => {
     cy.get(".TaskItem").should("have.length", 0);
   });
 
-  it("should persist task items", () => {
+  it("Reloading the page after adding some task items should still show the added items", () => {
     addEntries();
     cy.reload();
     cy.get(".TaskItem").should("have.length", todoItems.length);

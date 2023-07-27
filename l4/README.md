@@ -1,14 +1,12 @@
-# Automated test for L3
+To run the test suite, first start the server:
 
-## Run the tests
-
-```sh
-npm install
-npm run cy:run -- --env STUDENT_SUBMISSION_URL="https://mjzac.github.io/throw-away/"
+```bash
+# This should spin up the server on port 5173.
+npm run dev
 ```
 
-You can test local server by providing a localhost url.
+and then run Cypress:
 
-```sh
-npm run cy:run -- --env STUDENT_SUBMISSION_URL="http://localhost:3000/throw-away"
+```bash
+npm run cy:run -- --env STUDENT_SUBMISSION_URL="http://localhost:5173"
 ```
