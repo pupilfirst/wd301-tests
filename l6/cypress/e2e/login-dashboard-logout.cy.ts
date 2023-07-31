@@ -1,5 +1,5 @@
 let studentSubmissionUrl =
-  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:3000";
+  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:5173";
 
 if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
