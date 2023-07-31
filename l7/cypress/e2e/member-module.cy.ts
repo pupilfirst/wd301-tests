@@ -12,6 +12,7 @@ const signIn = () => {
   cy.get("#password").clear();
   cy.get("#password").type("12345678");
   cy.get("button[type='submit']").click();
+  cy.wait(800);
 };
 
 describe("When signed out,", () => {
@@ -27,6 +28,7 @@ describe("When signed out,", () => {
     cy.get("#userPassword").clear();
     cy.get("#userPassword").type("12345678");
     cy.get("button[type='submit']").click();
+    cy.wait(800);
   });
 
   it("visiting `/signin` and filling in `#email`, `#password` and clicking the submit button, the user should be redirected to `/account/projects`", () => {
@@ -41,12 +43,14 @@ describe("After signing in", () => {
 
   it("visiting the `/account/members` page should show the signed in user's email address and name", () => {
     cy.visit(studentSubmissionUrl + "/account/members");
+    cy.wait(800);
     cy.contains("alice@acme.com", { matchCase: false });
     cy.contains("Alice", { matchCase: false });
   });
 
   it("visiting `/account/members` and clicking `#new-member-btn` should allow users to fill in `#name`, `#email`, `#password`, and clicking `#create-member-btn` should add the new user's email address and name in the list of members", () => {
     cy.visit(studentSubmissionUrl + "/account/members");
+    cy.wait(800);
 
     cy.get("#new-member-btn").click();
 
@@ -66,7 +70,7 @@ describe("After signing in", () => {
 
   it("visiting the `/account/members` should show `.member` elements that have delete button in them that can be used to remove members", () => {
     cy.visit(studentSubmissionUrl + "/account/members");
-
+    cy.wait(800);
     cy.get(".member") // Select all cards with classname ".member"
       .last() // Select the last card
       .within(() => {
