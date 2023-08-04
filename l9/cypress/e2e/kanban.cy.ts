@@ -2,8 +2,10 @@
 
 import * as keyCodes from "./key-codes";
 import { getDroppableSelector, getDraggableSelector } from "./utils";
+
 let studentSubmissionUrl =
-  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:3000";
+  Cypress.env("STUDENT_SUBMISSION_URL") || "http://localhost:5173";
+
 if (studentSubmissionUrl.endsWith("/")) {
   studentSubmissionUrl = studentSubmissionUrl.slice(0, -1);
 }
@@ -70,25 +72,21 @@ describe("After signing in, and navigating to the ", () => {
   });
 
   it("`/account/projects` path, the `ProjectList` component should have suspense implemented, rendering a `div` with class `suspense-loading`", () => {
-    cy.visit(studentSubmissionUrl + "/account/projects");
+    cy.intercept("GET", "http://localhost:3001/projects", (req) => {
+      cy.wait(2000);
+    }).as("getProjects");
 
-    cy.intercept(
-      "GET",
-      "https://wd301-api.pupilfirst.school/projects",
-      (req) => {
-        cy.wait(2000);
-      }
-    ).as("getProjects");
+    cy.visit(studentSubmissionUrl + "/account/projects");
 
     cy.get(".suspense-loading").should("be.visible");
   });
 
   it("`/account/members` path, the `MemberList` component should have suspense implemented rendering a `div` with class `suspense-loading`", () => {
-    cy.visit(studentSubmissionUrl + "/account/members");
-
-    cy.intercept("GET", "https://wd301-api.pupilfirst.school/users", (req) => {
+    cy.intercept("GET", "http://localhost:3001/users", (req) => {
       cy.wait(2000);
     }).as("getUsers");
+
+    cy.visit(studentSubmissionUrl + "/account/members");
 
     cy.get(".suspense-loading").should("be.visible");
   });
