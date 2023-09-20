@@ -28,6 +28,7 @@ describe("After signing in,", () => {
     cy.get("#password").clear();
     cy.get("#password").type("12345678");
     cy.get("button[type='submit']").click();
+    cy.wait(800);
   });
 
   it("the user should be redirected to the `/dashboard` path", () => {
