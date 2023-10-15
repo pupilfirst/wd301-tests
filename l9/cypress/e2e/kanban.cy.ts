@@ -43,8 +43,17 @@ describe("After signing in,", () => {
   it("visiting the `/account/projects` path should render a Progressive Web App that uses a proper service worker", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
-    // Verify if the service worker is registered
+    // Wait for service worker to get activated.
+    cy.wait(3000);
+
     cy.window().then((window) => {
+      if (window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          registrations.forEach((registration) => {
+            registration.unregister();
+          });
+        });
+      }
       expect(window.navigator.serviceWorker.controller).to.not.be.null;
     });
   });
