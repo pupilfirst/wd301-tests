@@ -44,7 +44,7 @@ describe("After signing in,", () => {
     cy.visit(studentSubmissionUrl + "/account/projects");
 
     // Wait for service worker to get activated.
-    cy.wait(3000);
+    cy.wait(6000);
 
     cy.window().then((window) => {
       if (window.navigator && navigator.serviceWorker) {
