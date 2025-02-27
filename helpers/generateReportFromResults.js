@@ -15,7 +15,7 @@ let generateFeedback = (passed, results) => {
 
   const suffix = passed
     ? "See you in the next level!"
-    : "Please make sure that you go through the assignment instructions. If you're having trouble with this assignment, please ask for help on the Pupilfirst School Discord server, and include details of the issue you're having.";
+    : "Please make sure that you go through the assignment instructions. If you're having trouble with this assignment, carefully review your code for errors and refer to the course materials and provided guidelines.";
 
   const feedback = prefix + "\n\n" + testResults + "\n\n" + suffix;
 
@@ -60,7 +60,7 @@ readFile("results.json").then((data) => {
       grade: "reject",
       status: "failure",
       feedback:
-        "We are unable to test your submission - something about it was too different from what we were expecting. Please check the instructions for this assignment and try again. If you have seen this message more than once, please reach out to Pupilfirst team for support via our Discord server.",
+        "We are unable to test your submission - something about it was too different from what we were expecting. Please check the instructions for this assignment and try again. If you have seen this message more than once, carefully review your code for errors and refer to the course materials and provided guidelines.",
       report: "Unable to generate report due to missing results.json.",
     });
   }
